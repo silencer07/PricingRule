@@ -1,0 +1,92 @@
+{
+  "products" : [
+    {
+      "code" : "ult_small",
+      "name" : "Unlimited 1GB",
+      "price": 24.90
+    },
+    {
+      "code" : "ult_medium",
+      "name" : "Unlimited 2GB",
+      "price": 29.90
+    },
+    {
+      "code" : "ult_large",
+      "name" : "Unlimited 5GB",
+      "price": 44.90
+    },
+    {
+      "code" : "1gb",
+      "name" : "1GB Data-pack",
+      "price": 24.90
+    }
+  ],
+  "autoPromos" : [
+    {
+      "name" : "3 for 2 deal on Unlimited 1GB",
+      "requirements" : [
+        {
+          "code" : "ult_small",
+          "qty": 2
+        }
+      ],
+      "rewards" : [
+        {
+          "type" : "Freebie",
+          "applyPerItem": false,
+          "code" : "ult_small",
+          "qty" : 1
+        }
+      ]
+    },
+    {
+      "name" : "Unlimited 5GB Sim Promo",
+      "requirements" : [
+        {
+          "code" : "ult_large",
+          "qty": 3
+        }
+      ],
+      "rewards" : [
+        {
+          "type" : "PriceDrop",
+          "applyPerItem": true,
+          "price" : 39.90,
+          "applicableToProductCodes" : [ "ult_large" ]
+        }
+      ]
+    },
+    {
+      "name" : "Buy Unlimited 2GB get 1GB Data-pack free",
+      "requirements" : [
+        {
+          "code" : "ult_medium",
+          "qty": 2
+        }
+      ],
+      "rewards" : [
+        {
+          "type" : "Freebie",
+          "applyPerItem": false,
+          "code" : "1gb",
+          "qty" : 1
+        }
+      ]
+    }
+  ],
+  "manualPromos" : [
+    {
+      "name" : "Unlimited 5GB Sim Promo",
+      "code": "I<3AMAYSIM",
+      "requirements" : [],
+      "rewards" : [
+        {
+          "type" : "Discount",
+          "applyPerItem": false,
+          "percentage": 0.10,
+          "applicableToProductCodes" : []
+        }
+      ]
+    }
+  ]
+}
