@@ -73,14 +73,13 @@
   ],
   "manualPromos" : [
     {
-      "name" : "Unlimited 5GB Sim Promo",
+      "name" : "I Love AmaySim",
       "code": "I<3AMAYSIM",
       "requirements" : [],
       "rewards" : [
         {
           "type" : "DiscountPercentagePromo",
-          "percentage": 0.10,
-          "applicableToProductCodes" : []
+          "percentage": 0.10
         }
       ]
     }

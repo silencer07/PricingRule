@@ -1,3 +1,5 @@
+import ShoppingCart from "./ShoppingCart";
+
 const requirementItemMatchingByCodeReducer = item => req => req.code === item.code;
 
 export default class Promo {
@@ -35,7 +37,7 @@ export default class Promo {
      */
     apply(shoppingCart) {
         console.log("processing the items started");
-        const shoppingCartCopy = JSON.parse(JSON.stringify(shoppingCart));
+        const shoppingCartCopy = Object.assign(new ShoppingCart(), JSON.parse(JSON.stringify(shoppingCart)));
         shoppingCartCopy.total = +(shoppingCartCopy.items.reduce((result, item) => result += (item.qty * item.price), 0)).toFixed(2);
         return shoppingCartCopy;
     }
