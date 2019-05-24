@@ -1,31 +1,9 @@
-const requirementItemMatchingByCodeReducer = item => req => req.code === item.code;
+import Promo from "./Promo";
 
-export default class FreebiePromo {
+export default class FreebiePromo extends Promo {
 
     constructor(name = 'Unnamed Freebie Promo', requirements = [], rewards = []) {
-        this.name = name;
-        this.requirements = requirements;
-        this.rewards = rewards;
-    }
-
-    checkIfApplicable(originalItems = []) {
-        if (!this.requirements) {
-            return true
-        }
-
-        const fulfilledRequirements = this.getFulfilledRequirements(originalItems);
-        return fulfilledRequirements.length === this.requirements.length;
-    }
-
-    getFulfilledRequirements(originalItems) {
-        const itemsMatchingRequirements = originalItems.filter(
-            item => this.requirements.filter(requirementItemMatchingByCodeReducer(item)).length > 0
-        );
-        return itemsMatchingRequirements
-            .map(item => this.requirements.find(requirementItemMatchingByCodeReducer(item)))
-            .filter(req =>
-                req.qty <= itemsMatchingRequirements.find(item => item.code === req.code).qty
-            );
+        super(name, requirements, rewards);
     }
 
     /**
@@ -34,7 +12,7 @@ export default class FreebiePromo {
      * @return copy of processedItems that went through this
      */
     apply(unprocessedItems) {
-        const processedItems = JSON.parse(JSON.stringify(unprocessedItems));
+        const processedItems = super.apply(unprocessedItems);
         let freebieCount = 0;
 
         if (this.checkIfApplicable(unprocessedItems)) {
