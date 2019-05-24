@@ -14,75 +14,92 @@ beforeEach(() => {
 
 
 test('shopping cart eligible for 3 for 2 deal on Unlimited 1GB', () => {
-    const items = [
-        {
-            code: 'ult_small',
-            qty: 2,
-            price: 24.90
-        }
-    ];
-    expect(threeForTwo.checkIfApplicable(items)).toBe(true);
+    const cart = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 2,
+                price: 24.90
+            }
+        ]
+    };
+    expect(threeForTwo.checkIfApplicable(cart)).toBe(true);
 });
 
 test('shopping cart not eligible for 2 deal on Unlimited 1GB shopping cart', () => {
-    const items = [
-        {
-            code: 'ult_small',
-            qty: 1,
-            price: 24.90
-        }
-    ];
-    expect(threeForTwo.checkIfApplicable(items)).toBe(false);
+    const cart = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 1,
+                price: 24.90
+            }
+        ]
+    };
+    expect(threeForTwo.checkIfApplicable(cart)).toBe(false);
 });
 
 test('shopping cart got 1 freebie from 3 for 2 deal on Unlimited 1GB', () => {
-    const items = [
-        {
-            code: 'ult_small',
-            qty: 2,
-            price: 24.90
-        }
-    ];
-    const expected = [
-        {
-            code: 'ult_small',
-            qty: 2,
-            price: 24.90
-        },
-        {
-            code: 'ult_small',
-            qty: 1,
-            price: 0
-        }
-    ];
-    expect(threeForTwo.apply(items)).toEqual(expected);
+    const cart = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 2,
+                price: 24.90
+            }
+        ]
+    };
 
-    items[0].qty = 3;
-    expected[0].qty = 3;
-    expect(threeForTwo.apply(items)).toEqual(expected);
+    const expected = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 2,
+                price: 24.90
+            },
+            {
+                code: 'ult_small',
+                qty: 1,
+                price: 0
+            }
+        ],
+        total: 49.80
+    };
+    expect(threeForTwo.apply(cart)).toEqual(expected);
+
+    cart.items[0].qty = 3;
+    expected.items[0].qty = 3;
+    expected.total = 74.70;
+    expect(threeForTwo.apply(cart)).toEqual(expected);
 });
 
 test('shopping cart got 3 freebie from 3 for 2 deal on Unlimited 1GB', () => {
-    const items = [
-        {
-            code: 'ult_small',
-            qty: 6,
-            price: 24.90
-        }
-    ];
-    const expected = [
-        {
-            code: 'ult_small',
-            qty: 6,
-            price: 24.90
-        },
-        {
-            code: 'ult_small',
-            qty: 3,
-            price: 0
-        }
-    ];
-    expect(threeForTwo.apply(items)).toEqual(expected);
+    const cart = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 6,
+                price: 24.90
+            }
+        ]
+    };
+
+    const expected = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 6,
+                price: 24.90
+            },
+            {
+                code: 'ult_small',
+                qty: 3,
+                price: 0
+            }
+        ],
+        total: 149.40
+    };
+    expect(threeForTwo.apply(cart)).toEqual(expected);
 });
 
 test('suddenly 3 for 2 deal on Unlimited 1GB requirement increased', () => {
@@ -90,128 +107,160 @@ test('suddenly 3 for 2 deal on Unlimited 1GB requirement increased', () => {
         code: 'ult_medium',
         qty: 1
     });
-    let items = [
-        {
-            code: 'ult_small',
-            qty: 2,
-            price: 24.90
-        },
-        {
-            code: 'ult_medium',
-            qty: 1,
-            price: 29.90
-        }
-    ];
-    const expected = [
-        {
-            code: 'ult_small',
-            qty: 2,
-            price: 24.90
-        },
-        {
-            code: 'ult_medium',
-            qty: 1,
-            price: 29.90
-        },
-        {
-            code: 'ult_small',
-            qty: 1,
-            price: 0
-        }
-    ];
-    expect(threeForTwo.apply(items)).toEqual(expected);
+
+    const cart = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 2,
+                price: 24.90
+            },
+            {
+                code: 'ult_medium',
+                qty: 1,
+                price: 29.90
+            }
+        ]
+    };
+
+    const expected = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 2,
+                price: 24.90
+            },
+            {
+                code: 'ult_medium',
+                qty: 1,
+                price: 29.90
+            },
+            {
+                code: 'ult_small',
+                qty: 1,
+                price: 0
+            }
+        ],
+        total: 79.70
+    };
+
+    expect(threeForTwo.apply(cart)).toEqual(expected);
 
     // the cart did not satisfy the requirement
-    items = [
+    cart.items = [
         {
             code: 'ult_small',
             qty: 2,
             price: 24.90
         }
     ];
-    expect(threeForTwo.apply(items)).toEqual(items);
+    cart.total = 49.80;
+    expect(threeForTwo.apply(cart)).toEqual(cart);
 });
 
 test('suddenly 3 for 2 deal on Unlimited 1GB reward increased', () => {
     threeForTwo.rewards.push({
-        type : "FreebiePromo",
+        type: "FreebiePromo",
         applyPerItem: false,
         code: 'ult_medium',
         qty: 1,
     });
-    const items = [
-        {
-            code: 'ult_small',
-            qty: 2,
-            price: 24.90
-        }
-    ];
-    const expected = [
-        {
-            code: 'ult_small',
-            qty: 2,
-            price: 24.90
-        },
-        {
-            code: 'ult_small',
-            qty: 1,
-            price: 0
-        },
-        {
-            code: 'ult_medium',
-            qty: 1,
-            price: 0
-        }
-    ];
-    expect(threeForTwo.apply(items)).toEqual(expected);
+
+    const cart = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 2,
+                price: 24.90
+            }
+        ]
+    };
+
+    const expected = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 2,
+                price: 24.90
+            },
+            {
+                code: 'ult_small',
+                qty: 1,
+                price: 0
+            },
+            {
+                code: 'ult_medium',
+                qty: 1,
+                price: 0
+            }
+        ],
+        total: 49.80
+    };
+
+    expect(threeForTwo.apply(cart)).toEqual(expected);
 });
 
 test('shopping cart eligible for Buy Unlimited 2GB get 1GB Data-pack free', () => {
-    const items = [
-        {
-            code: 'ult_medium',
-            qty: 1,
-            price: 29.90
-        }
-    ];
-    expect(TwoGBFreeOneGB.checkIfApplicable(items)).toBe(true);
+
+    const cart = {
+        items: [
+            {
+                code: 'ult_medium',
+                qty: 1,
+                price: 29.90
+            }
+        ]
+    };
+
+    expect(TwoGBFreeOneGB.checkIfApplicable(cart)).toBe(true);
 });
 
 test('shopping cart not eligible for Buy Unlimited 2GB get 1GB Data-pack free', () => {
-    const items = [
-        {
-            code: 'ult_small',
-            qty: 1,
-            price: 24.90
-        }
-    ];
-    expect(TwoGBFreeOneGB.checkIfApplicable(items)).toBe(false);
+    const cart = {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 1,
+                price: 24.90
+            }
+        ]
+    };
+    expect(TwoGBFreeOneGB.checkIfApplicable(cart)).toBe(false);
 });
 
 test('shopping cart got 1 freebie from Buy Unlimited 2GB get 1GB Data-pack free', () => {
-    const items = [
-        {
-            code: 'ult_medium',
-            qty: 1,
-            price: 29.90
-        }
-    ];
-    const expected = [
-        {
-            code: 'ult_medium',
-            qty: 1,
-            price: 29.90
-        },
-        {
-            code: '1gb',
-            qty: 1,
-            price: 0
-        }
-    ];
-    expect(TwoGBFreeOneGB.apply(items)).toEqual(expected);
 
-    items[0].qty = 3;
-    expected[0].qty = 3;
-    expected[1].qty = 3;
-    expect(TwoGBFreeOneGB.apply(items)).toEqual(expected);
+    const cart = {
+        items: [
+            {
+                code: 'ult_medium',
+                qty: 1,
+                price: 29.90
+            }
+        ]
+    };
+
+    const expected = {
+        items: [
+            {
+                code: 'ult_medium',
+                qty: 1,
+                price: 29.90
+            },
+            {
+                code: '1gb',
+                qty: 1,
+                price: 0
+            }
+        ],
+        total: 29.90
+    };
+
+    expect(TwoGBFreeOneGB.apply(cart)).toEqual(expected);
+
+    cart.items[0].qty = 3;
+    expected.items[0].qty = 3;
+    expected.items[1].qty = 3;
+    expected.total = 89.70
+    expect(TwoGBFreeOneGB.apply(cart)).toEqual(expected);
 });

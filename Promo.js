@@ -8,17 +8,17 @@ export default class Promo {
         this.rewards = rewards;
     }
 
-    checkIfApplicable(originalItems = []) {
+    checkIfApplicable(cart) {
         if (!this.requirements) {
             return true
         }
 
-        const fulfilledRequirements = this.getFulfilledRequirements(originalItems);
+        const fulfilledRequirements = this.getFulfilledRequirements(cart);
         return fulfilledRequirements.length === this.requirements.length;
     }
 
-    getFulfilledRequirements(originalItems) {
-        const itemsMatchingRequirements = originalItems.filter(
+    getFulfilledRequirements(cart) {
+        const itemsMatchingRequirements = cart.items.filter(
             item => this.requirements.filter(requirementItemMatchingByCodeReducer(item)).length > 0
         );
         return itemsMatchingRequirements
@@ -33,8 +33,10 @@ export default class Promo {
      * @param unprocessedItems the items yet to be processed by this promo
      * @return copy of processedItems that went through this
      */
-    apply(unprocessedItems) {
+    apply(shoppingCart) {
         console.log("processing the items started");
-        return JSON.parse(JSON.stringify(unprocessedItems));
+        const shoppingCartCopy = JSON.parse(JSON.stringify(shoppingCart));
+        shoppingCartCopy.total = +(shoppingCartCopy.items.reduce((result, item) => result += (item.qty * item.price), 0)).toFixed(2);
+        return shoppingCartCopy;
     }
 }
