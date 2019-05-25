@@ -1,6 +1,7 @@
 import fs from 'fs'
-import DiscountPercentagePromo from "./DiscountPercentagePromo";
+import ManualPromo from "./ManualPromo"
 import ShoppingCart from "./ShoppingCart";
+import DiscountPercentageReward from "./DiscountPercentageReward";
 
 let iLoveAmaySimPromo;
 beforeEach(() => {
@@ -8,7 +9,7 @@ beforeEach(() => {
     const rawData = fs.readFileSync("pricing-rules.json");
     const data = JSON.parse(rawData);
 
-    iLoveAmaySimPromo = new DiscountPercentagePromo(data.manualPromos[0].name, data.manualPromos[0].requirements, data.manualPromos[0].rewards);
+    iLoveAmaySimPromo = new ManualPromo(data.manualPromos[0].name, data.manualPromos[0].requirements, data.manualPromos[0].rewards);
     iLoveAmaySimPromo.code = data.manualPromos[0].code;
 });
 
@@ -60,6 +61,7 @@ test('shopping cart got 10% discount', () => {
             }
         ],
         total: 44.82,
+        totalDiscount: 0.1,
         pricingRule: undefined,
         couponCodes: [ iLoveAmaySimPromo.code ]
     });
@@ -72,10 +74,7 @@ test('shopping cart got 10% discount', () => {
 });
 
 test('shopping cart got 20% discount', () => {
-    iLoveAmaySimPromo.rewards.push({
-        "type" : "DiscountPercentagePromo",
-        "percentage": 0.10
-    });
+    iLoveAmaySimPromo.rewards.push(new DiscountPercentageReward(0.10));
 
     const cart = new ShoppingCart();
     cart.items = [
@@ -96,6 +95,7 @@ test('shopping cart got 20% discount', () => {
             }
         ],
         couponCodes: [iLoveAmaySimPromo.code],
+        totalDiscount: 0.2,
         total: 39.84
     });
     expect(iLoveAmaySimPromo.apply(cart)).toEqual(expected);

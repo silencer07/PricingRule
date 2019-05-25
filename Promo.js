@@ -60,8 +60,18 @@ export default class Promo {
         this.calculateTotal(shoppingCartCopy);
 
         if (this.checkIfApplicable(shoppingCart)) {
+            const reversedRewards = this.rewards.slice().reverse();
             this.rewards
-                .forEach(reward => reward.apply(this, shoppingCartCopy));
+                .forEach((reward, index) =>  {
+                        reward.apply(this, shoppingCartCopy);
+
+                        const lastIndexOfSamePromo = reversedRewards.length - 1
+                            - reversedRewards.findIndex(r => reward.constructor.name === r.constructor.name);
+                        if (index === lastIndexOfSamePromo && reward.sumTheRewardFirstBeforeApplying) {
+                            reward.finallyApply(shoppingCartCopy);
+                        }
+                    }
+                );
         }
 
         return shoppingCartCopy;
