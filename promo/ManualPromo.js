@@ -7,3 +7,5 @@ export default class ManualPromo extends Promo {
         return requirementsSatisified && hasCouponCodeEntered
     }
 }
+
+export const objectToManualPromoMapper = obj => new ManualPromo(obj.name, obj.requirements, obj.rewards);

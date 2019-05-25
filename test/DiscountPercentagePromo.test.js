@@ -40,7 +40,7 @@ test('shopping cart eligible not eligible', () => {
     expect(iLoveAmaySimPromo.checkIfApplicable(cart)).toBe(false);
 });
 
-test('shopping cart got 10% discount', () => {
+test('shopping cart got 10% discount case 1', () => {
     const cart = new ShoppingCart();
     cart.items = [
         {
@@ -65,14 +65,36 @@ test('shopping cart got 10% discount', () => {
         couponCodes: [ iLoveAmaySimPromo.code ]
     });
     expect(iLoveAmaySimPromo.apply(cart)).toEqual(expected);
+});
 
-    cart.items[0].qty = 3;
-    expected.items[0].qty = 3;
-    expected.total = 67.23;
+test('shopping cart got 10% discount case 2', () => {
+    const cart = new ShoppingCart();
+    cart.items = [
+        {
+            code: 'ult_small',
+            qty: 3,
+            price: 24.90
+        }
+    ];
+    cart.couponCodes.push(iLoveAmaySimPromo.code);
+
+    const expected = Object.assign(new ShoppingCart(), {
+        items: [
+            {
+                code: 'ult_small',
+                qty: 3,
+                price: 24.90
+            }
+        ],
+        total: 67.23,
+        totalDiscount: 0.1,
+        pricingRule: undefined,
+        couponCodes: [ iLoveAmaySimPromo.code ]
+    });
     expect(iLoveAmaySimPromo.apply(cart)).toEqual(expected);
 });
 
-test('shopping cart got 20% discount', () => {
+test('shopping cart got 20% discount case 1', () => {
     iLoveAmaySimPromo.rewards.push(new DiscountPercentageReward(0.10));
 
     const cart = new ShoppingCart();
@@ -98,9 +120,32 @@ test('shopping cart got 20% discount', () => {
         total: 39.84
     });
     expect(iLoveAmaySimPromo.apply(cart)).toEqual(expected);
+});
 
-    cart.items[0].qty = 3;
-    expected.items[0].qty = 3;
-    expected.total = 59.76;
+test('shopping cart got 20% discount case 2', () => {
+    iLoveAmaySimPromo.rewards.push(new DiscountPercentageReward(0.10));
+
+    const cart = new ShoppingCart();
+    cart.items = [
+        {
+            code: 'ult_small',
+            qty: 3,
+            price: 24.90
+        }
+    ];
+    cart.couponCodes.push(iLoveAmaySimPromo.code);
+
+    const expected = Object.assign(new ShoppingCart(),{
+        items: [
+            {
+                code: 'ult_small',
+                qty: 3,
+                price: 24.90
+            }
+        ],
+        couponCodes: [iLoveAmaySimPromo.code],
+        totalDiscount: 0.2,
+        total: 59.76
+    });
     expect(iLoveAmaySimPromo.apply(cart)).toEqual(expected);
 });
