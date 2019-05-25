@@ -4,6 +4,7 @@
   "description": "sample project",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node index.js",
     "test": "jest"
   },
   "repository": {
@@ -17,7 +18,6 @@
   },
   "homepage": "https://github.com/silencer07/PricingRule#readme",
   "devDependencies": {
-    "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0"
