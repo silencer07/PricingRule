@@ -1,11 +1,10 @@
 import fs from 'fs'
-import Promo from "./Promo";
-import ShoppingCart from "./ShoppingCart";
+import Promo from "../promo/Promo";
+import ShoppingCart from "../cart/ShoppingCart";
 
 let priceDropPromo;
 beforeEach(() => {
-
-    const rawData = fs.readFileSync("pricing-rules.json");
+    const rawData = fs.readFileSync("data/pricing-rules.json");
     const data = JSON.parse(rawData);
 
     priceDropPromo = new Promo(data.autoPromos[1].name, data.autoPromos[1].requirements, data.autoPromos[1].rewards);

@@ -1,12 +1,11 @@
 import fs from 'fs'
-import ManualPromo from "./ManualPromo"
-import ShoppingCart from "./ShoppingCart";
-import DiscountPercentageReward from "./DiscountPercentageReward";
+import ManualPromo from "../promo/ManualPromo"
+import ShoppingCart from "../cart/ShoppingCart";
+import DiscountPercentageReward from "../reward/DiscountPercentageReward";
 
 let iLoveAmaySimPromo;
 beforeEach(() => {
-
-    const rawData = fs.readFileSync("pricing-rules.json");
+    const rawData = fs.readFileSync("data/pricing-rules.json");
     const data = JSON.parse(rawData);
 
     iLoveAmaySimPromo = new ManualPromo(data.manualPromos[0].name, data.manualPromos[0].requirements, data.manualPromos[0].rewards);

@@ -1,13 +1,12 @@
-import Promo from "./Promo";
+import Promo from "../promo/Promo";
 import fs from 'fs'
-import ShoppingCart from "./ShoppingCart";
-import FreebieReward from "./FreebieReward";
+import ShoppingCart from "../cart/ShoppingCart";
+import FreebieReward from "../reward/FreebieReward";
 
 let threeForTwo;
 let TwoGBFreeOneGB;
 beforeEach(() => {
-
-    const rawData = fs.readFileSync("pricing-rules.json");
+    const rawData = fs.readFileSync("data/pricing-rules.json");
     const data = JSON.parse(rawData);
 
     threeForTwo = new Promo(data.autoPromos[0].name, data.autoPromos[0].requirements, data.autoPromos[0].rewards);

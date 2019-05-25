@@ -1,7 +1,7 @@
-import ShoppingCart from "./ShoppingCart";
-import FreebieReward from "./FreebieReward";
-import DiscountPercentageReward from "./DiscountPercentageReward";
-import PriceDropReward from "./PriceDropReward";
+import ShoppingCart from "../cart/ShoppingCart";
+import FreebieReward from "../reward/FreebieReward";
+import DiscountPercentageReward from "../reward/DiscountPercentageReward";
+import PriceDropReward from "../reward/PriceDropReward";
 
 const requirementItemMatchingByCodeReducer = item => req => req.code === item.code && item.price  > 0;
 
