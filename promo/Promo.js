@@ -56,15 +56,13 @@ export default class Promo {
      */
     apply(shoppingCart) {
         console.log("processing the items started");
-        const shoppingCartCopy = Object.assign(new ShoppingCart(), JSON.parse(JSON.stringify(shoppingCart)));
-
         if (this.checkIfApplicable(shoppingCart)) {
             this.rewards
-                .forEach((reward, index) =>  reward.apply(this, shoppingCartCopy));
+                .forEach(reward =>  reward.apply(this, shoppingCart));
         }
-        shoppingCartCopy.calculateTotal();
+        shoppingCart.calculateTotal();
 
-        return shoppingCartCopy;
+        return shoppingCart;
     }
 }
 

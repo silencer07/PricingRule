@@ -61,12 +61,32 @@ test('shopping cart got 1 freebie from Buy Unlimited 2GB get 1GB Data-pack free'
         }
     ];
     expected.total = 29.90;
+});
 
-    expect(TwoGBFreeOneGB.apply(cart)).toEqual(expected);
+test('shopping cart got 1 freebie from Buy Unlimited 2GB get 1GB Data-pack free case 2', () => {
+    const cart = new ShoppingCart();
+    cart.items = [
+        {
+            code: 'ult_medium',
+            qty: 3,
+            price: 29.90
+        }
+    ];
 
-    cart.items[0].qty = 3;
-    expected.items[0].qty = 3;
-    expected.items[1].qty = 3;
+    const expected = new ShoppingCart();
+    expected.items = [
+        {
+            code: 'ult_medium',
+            qty: 3,
+            price: 29.90
+        },
+        {
+            code: '1gb',
+            qty: 3,
+            price: 0
+        }
+    ];
     expected.total = 89.70;
+
     expect(TwoGBFreeOneGB.apply(cart)).toEqual(expected);
 });
