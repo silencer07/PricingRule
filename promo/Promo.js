@@ -2,6 +2,7 @@ import ShoppingCart from "../cart/ShoppingCart";
 import FreebieReward from "../reward/FreebieReward";
 import DiscountPercentageReward from "../reward/DiscountPercentageReward";
 import PriceDropReward from "../reward/PriceDropReward";
+import BuyNPayNReward from "../reward/BuyNPayNReward";
 
 const requirementItemMatchingByCodeReducer = item => req => req.code === item.code && item.price  > 0;
 
@@ -18,6 +19,8 @@ export default class Promo {
                 case "DiscountPercentageReward": toReturn = new DiscountPercentageReward();
                     break;
                 case "PriceDropReward": toReturn = new PriceDropReward();
+                    break;
+                case "BuyNPayNReward": toReturn = new BuyNPayNReward();
                     break;
                 default: throw new Error(`${reward.type} not yet implemented`)
             }
@@ -64,3 +67,5 @@ export default class Promo {
         return shoppingCartCopy;
     }
 }
+
+export const objectToPromoMapper = obj => new Promo(obj.name, obj.requirements, obj.rewards);

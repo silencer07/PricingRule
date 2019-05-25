@@ -27,13 +27,13 @@
       "requirements" : [
         {
           "code" : "ult_small",
-          "qty": 2
+          "qty": 3
         }
       ],
       "rewards" : [
         {
-          "type" : "FreebieReward",
-          "code" : "ult_small",
+          "type" : "BuyNPayNReward",
+          "applyToTheseProductCodes" : [ "ult_small" ],
           "qty" : 1
         }
       ]
