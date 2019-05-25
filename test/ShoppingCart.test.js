@@ -37,3 +37,19 @@ test('test case 1', () => {
 
     expect(shoppingCart).toEqual(expectedShoppingCart);
 });
+
+test('test case 2', () => {
+    const item1 = new ShoppingCartItem(data.products[0], 2);
+    const item2 = new ShoppingCartItem(data.products[2], 4);
+    shoppingCart.add(item1);
+    shoppingCart.add(item2);
+
+    shoppingCart.process();
+
+    expectedShoppingCart.add(item1);
+    expectedShoppingCart.add(item2);
+
+    expectedShoppingCart.total =  209.40;
+
+    expect(shoppingCart).toEqual(expectedShoppingCart);
+});
