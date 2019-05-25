@@ -50,7 +50,7 @@
         {
           "type" : "PriceDropPromo",
           "price" : 39.90,
-          "applicableToProductCodes" : [ "ult_large" ]
+          "applyToTheseProductCodes" : [ "ult_large" ]
         }
       ]
     },

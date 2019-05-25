@@ -1,6 +1,6 @@
 import ShoppingCart from "./ShoppingCart";
 
-const requirementItemMatchingByCodeReducer = item => req => req.code === item.code;
+const requirementItemMatchingByCodeReducer = item => req => req.code === item.code && item.price  > 0;
 
 export default class Promo {
 
@@ -30,6 +30,10 @@ export default class Promo {
             );
     }
 
+    calculateTotal(shoppingCart) {
+        shoppingCart.total = +(shoppingCart.items.reduce((result, item) => result += (item.qty * item.price), 0)).toFixed(2);
+    }
+
     /**
      * processes the items by piping them up to promo
      * @param unprocessedItems the items yet to be processed by this promo
@@ -38,7 +42,7 @@ export default class Promo {
     apply(shoppingCart) {
         console.log("processing the items started");
         const shoppingCartCopy = Object.assign(new ShoppingCart(), JSON.parse(JSON.stringify(shoppingCart)));
-        shoppingCartCopy.total = +(shoppingCartCopy.items.reduce((result, item) => result += (item.qty * item.price), 0)).toFixed(2);
+       this.calculateTotal(shoppingCartCopy);
         return shoppingCartCopy;
     }
 }

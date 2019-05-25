@@ -18,7 +18,7 @@ export default class DiscountPercentagePromo extends Promo {
                 .reduce((result, percentage) => result + percentage, 0);
 
             const total = processedShoppingCart.total;
-            processedShoppingCart.total -= (total * totalDiscount )
+            processedShoppingCart.total -= (total * totalDiscount );
             processedShoppingCart.total = +processedShoppingCart.total.toFixed(2)
         }
 
