@@ -49,7 +49,20 @@ shoppingCartsToShow.forEach((s, index) => {
     s.process();
 
     console.log(`> final items:`);
-    s.items.forEach(i =>
+    let groupedItems = s.items;
+    groupedItems = groupedItems.reduce((result, item) => {
+        const existingItem = result.find(i => i.code === item.code);
+        if (existingItem) {
+            existingItem.qty += item.qty
+        } else {
+            result.push({
+                code: item.code,
+                qty: item.qty
+            })
+        }
+        return result;
+    }, []);
+    groupedItems.forEach(i =>
         console.log(`${i.qty} X ${findItemByCode(i.code).name}`)
     );
     console.log(`> total: ${s.total}`);
