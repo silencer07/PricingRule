@@ -49,23 +49,21 @@ test('shopping cart got 1 freebie from 3 for 2 deal on Unlimited 1GB', () => {
         }
     ];
 
-    const expected = {
-        items: [
-            {
-                code: 'ult_small',
-                qty: 2,
-                price: 24.90
-            },
-            {
-                code: 'ult_small',
-                qty: 1,
-                price: 0
-            }
-        ],
-        total: 49.80,
-        pricingRule: undefined,
-        couponCodes: []
-    };
+    const expected = new ShoppingCart();
+    expected.items = [
+        {
+            code: 'ult_small',
+            qty: 2,
+            price: 24.90
+        },
+        {
+            code: 'ult_small',
+            qty: 1,
+            price: 0
+        }
+    ];
+    expected.total = 49.80;
+
     expect(threeForTwo.apply(cart)).toEqual(expected);
 
     cart.items[0].qty = 3;
@@ -84,23 +82,21 @@ test('shopping cart got 3 freebie from 3 for 2 deal on Unlimited 1GB', () => {
         }
     ];
 
-    const expected = {
-        items: [
-            {
-                code: 'ult_small',
-                qty: 6,
-                price: 24.90
-            },
-            {
-                code: 'ult_small',
-                qty: 3,
-                price: 0
-            }
-        ],
-        total: 149.40,
-        pricingRule: undefined,
-        couponCodes: []
-    };
+    const expected = new ShoppingCart();
+    expected.items = [
+        {
+            code: 'ult_small',
+            qty: 6,
+            price: 24.90
+        },
+        {
+            code: 'ult_small',
+            qty: 3,
+            price: 0
+        }
+    ];
+    expected.total = 149.40;
+
     expect(threeForTwo.apply(cart)).toEqual(expected);
 });
 

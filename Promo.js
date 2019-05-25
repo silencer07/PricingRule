@@ -1,6 +1,7 @@
 import ShoppingCart from "./ShoppingCart";
 import FreebieReward from "./FreebieReward";
 import DiscountPercentageReward from "./DiscountPercentageReward";
+import PriceDropReward from "./PriceDropReward";
 
 const requirementItemMatchingByCodeReducer = item => req => req.code === item.code && item.price  > 0;
 
@@ -45,10 +46,6 @@ export default class Promo {
             );
     }
 
-    calculateTotal(shoppingCart) {
-        shoppingCart.total = +(shoppingCart.items.reduce((result, item) => result += (item.qty * item.price), 0)).toFixed(2);
-    }
-
     /**
      * processes the items by piping them up to promo
      * @param unprocessedItems the items yet to be processed by this promo
@@ -57,22 +54,12 @@ export default class Promo {
     apply(shoppingCart) {
         console.log("processing the items started");
         const shoppingCartCopy = Object.assign(new ShoppingCart(), JSON.parse(JSON.stringify(shoppingCart)));
-        this.calculateTotal(shoppingCartCopy);
 
         if (this.checkIfApplicable(shoppingCart)) {
-            const reversedRewards = this.rewards.slice().reverse();
             this.rewards
-                .forEach((reward, index) =>  {
-                        reward.apply(this, shoppingCartCopy);
-
-                        const lastIndexOfSamePromo = reversedRewards.length - 1
-                            - reversedRewards.findIndex(r => reward.constructor.name === r.constructor.name);
-                        if (index === lastIndexOfSamePromo && reward.sumTheRewardFirstBeforeApplying) {
-                            reward.finallyApply(shoppingCartCopy);
-                        }
-                    }
-                );
+                .forEach((reward, index) =>  reward.apply(this, shoppingCartCopy));
         }
+        shoppingCartCopy.calculateTotal();
 
         return shoppingCartCopy;
     }
