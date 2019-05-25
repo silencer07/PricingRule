@@ -30,7 +30,7 @@ export default class Promo {
     }
 
     checkIfApplicable(cart) {
-        if (!this.requirements) {
+        if (!this.requirements || this.requirements.length === 0) {
             return true
         }
 

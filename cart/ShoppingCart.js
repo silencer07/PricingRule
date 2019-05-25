@@ -28,7 +28,7 @@ export default class ShoppingCart {
 
     calculateTotal() {
         this.total = this.items.reduce((result, item) => result += (item.qty * item.price), 0);
-        this.total -= this.total * this.totalDiscount;
+        this.total -= (this.total * this.totalDiscount);
         this.total = +(this.total).toFixed(2);
     }
 }

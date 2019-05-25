@@ -8,4 +8,8 @@ export default class ManualPromo extends Promo {
     }
 }
 
-export const objectToManualPromoMapper = obj => new ManualPromo(obj.name, obj.requirements, obj.rewards);
+export const objectToManualPromoMapper = obj => {
+    const toReturn =new ManualPromo(obj.name, obj.requirements, obj.rewards);
+    toReturn.code = obj.code;
+    return toReturn;
+};

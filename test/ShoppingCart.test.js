@@ -56,7 +56,7 @@ test('test case 2', () => {
 
 test('test case 3', () => {
     const item1 = new ShoppingCartItem(data.products[0], 1);
-    const item2 = new ShoppingCartItem(data.products[2], 2);
+    const item2 = new ShoppingCartItem(data.products[1], 2);
     shoppingCart.add(item1);
     shoppingCart.add(item2);
 
@@ -65,7 +65,7 @@ test('test case 3', () => {
     expectedShoppingCart.add(item1);
     expectedShoppingCart.add(item2);
     expectedShoppingCart.add(
-        new ShoppingCartItem({ code : data.products[3].code, price : 0 }, 1)
+        new ShoppingCartItem({ code : data.products[3].code, price : 0 }, 2)
     );
 
     expectedShoppingCart.total =  84.70;
@@ -83,8 +83,10 @@ test('test case 4', () => {
 
     expectedShoppingCart.add(item1);
     expectedShoppingCart.add(item2);
+    expectedShoppingCart.couponCodes.push(data.manualPromos[0].code);
 
     expectedShoppingCart.total =  31.32;
+    expectedShoppingCart.totalDiscount = 0.10;
 
     expect(shoppingCart).toEqual(expectedShoppingCart);
 });
