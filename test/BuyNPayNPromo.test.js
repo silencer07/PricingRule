@@ -1,7 +1,7 @@
-import Promo from "../promo/Promo";
+import Promo from "../src/promo/Promo";
 import fs from 'fs'
-import ShoppingCart from "../cart/ShoppingCart";
-import BuyNPayNReward from "../reward/BuyNPayNReward";
+import ShoppingCart from "../src/cart/ShoppingCart";
+import BuyNPayNReward from "../src/reward/BuyNPayNReward";
 
 let threeForTwo;
 beforeEach(() => {

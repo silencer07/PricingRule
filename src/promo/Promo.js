@@ -55,7 +55,6 @@ export default class Promo {
      * @return copy of processedItems that went through this
      */
     apply(shoppingCart) {
-        console.log("processing the items started");
         if (this.checkIfApplicable(shoppingCart)) {
             this.rewards
                 .forEach(reward =>  reward.apply(this, shoppingCart));

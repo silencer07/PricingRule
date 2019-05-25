@@ -1,6 +1,6 @@
 import fs from 'fs'
-import Promo from "../promo/Promo";
-import ShoppingCart from "../cart/ShoppingCart";
+import Promo from "../src/promo/Promo";
+import ShoppingCart from "../src/cart/ShoppingCart";
 
 let priceDropPromo;
 beforeEach(() => {

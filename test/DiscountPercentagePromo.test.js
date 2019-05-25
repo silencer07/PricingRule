@@ -1,7 +1,7 @@
 import fs from 'fs'
-import ManualPromo from "../promo/ManualPromo"
-import ShoppingCart from "../cart/ShoppingCart";
-import DiscountPercentageReward from "../reward/DiscountPercentageReward";
+import ManualPromo from "../src/promo/ManualPromo"
+import ShoppingCart from "../src/cart/ShoppingCart";
+import DiscountPercentageReward from "../src/reward/DiscountPercentageReward";
 
 let iLoveAmaySimPromo;
 beforeEach(() => {

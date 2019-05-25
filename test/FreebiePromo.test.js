@@ -1,6 +1,6 @@
-import Promo from "../promo/Promo";
+import Promo from "../src/promo/Promo";
 import fs from 'fs'
-import ShoppingCart from "../cart/ShoppingCart";
+import ShoppingCart from "../src/cart/ShoppingCart";
 
 let TwoGBFreeOneGB;
 beforeEach(() => {

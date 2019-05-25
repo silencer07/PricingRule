@@ -1,9 +1,9 @@
 import fs from 'fs'
-import ManualPromo from "../promo/ManualPromo"
-import ShoppingCart from "../cart/ShoppingCart";
-import DiscountPercentageReward from "../reward/DiscountPercentageReward";
-import PricingRule from "../cart/PricingRule";
-import ShoppingCartItem from "../cart/ShoppingCartItem";
+import ManualPromo from "../src/promo/ManualPromo"
+import ShoppingCart from "../src/cart/ShoppingCart";
+import DiscountPercentageReward from "../src/reward/DiscountPercentageReward";
+import PricingRule from "../src/cart/PricingRule";
+import ShoppingCartItem from "../src/cart/ShoppingCartItem";
 
 let shoppingCart;
 let expectedShoppingCart;
