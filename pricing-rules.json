@@ -32,7 +32,7 @@
       ],
       "rewards" : [
         {
-          "type" : "FreebiePromo",
+          "type" : "FreebieReward",
           "code" : "ult_small",
           "qty" : 1
         }
@@ -48,7 +48,7 @@
       ],
       "rewards" : [
         {
-          "type" : "PriceDropPromo",
+          "type" : "PriceDropReward",
           "price" : 39.90,
           "applyToTheseProductCodes" : [ "ult_large" ]
         }
@@ -64,7 +64,7 @@
       ],
       "rewards" : [
         {
-          "type" : "FreebiePromo",
+          "type" : "FreebieReward",
           "code" : "1gb",
           "qty" : 1
         }
@@ -78,7 +78,7 @@
       "requirements" : [],
       "rewards" : [
         {
-          "type" : "DiscountPercentagePromo",
+          "type" : "DiscountPercentageReward",
           "percentage": 0.10
         }
       ]

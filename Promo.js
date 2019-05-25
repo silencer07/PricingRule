@@ -1,4 +1,6 @@
 import ShoppingCart from "./ShoppingCart";
+import FreebieReward from "./FreebieReward";
+import DiscountPercentageReward from "./DiscountPercentageReward";
 
 const requirementItemMatchingByCodeReducer = item => req => req.code === item.code && item.price  > 0;
 
@@ -7,7 +9,20 @@ export default class Promo {
     constructor(name = 'Unnamed Freebie Promo', requirements = [], rewards = []) {
         this.name = name;
         this.requirements = requirements;
-        this.rewards = rewards;
+        this.rewards = rewards.map(reward =>  {
+            let toReturn;
+            switch (reward.type) {
+                case "FreebieReward": toReturn = new FreebieReward();
+                    break;
+                case "DiscountPercentageReward": toReturn = new DiscountPercentageReward();
+                    break;
+                case "PriceDropReward": toReturn = new PriceDropReward();
+                    break;
+                default: throw new Error(`${reward.type} not yet implemented`)
+            }
+            Object.assign(toReturn, reward);
+            return toReturn;
+        });
     }
 
     checkIfApplicable(cart) {
@@ -42,7 +57,13 @@ export default class Promo {
     apply(shoppingCart) {
         console.log("processing the items started");
         const shoppingCartCopy = Object.assign(new ShoppingCart(), JSON.parse(JSON.stringify(shoppingCart)));
-       this.calculateTotal(shoppingCartCopy);
+        this.calculateTotal(shoppingCartCopy);
+
+        if (this.checkIfApplicable(shoppingCart)) {
+            this.rewards
+                .forEach(reward => reward.apply(this, shoppingCartCopy));
+        }
+
         return shoppingCartCopy;
     }
 }

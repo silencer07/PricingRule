@@ -1,6 +1,7 @@
-import FreebiePromo from "./FreebiePromo";
+import Promo from "./Promo";
 import fs from 'fs'
 import ShoppingCart from "./ShoppingCart";
+import FreebieReward from "./FreebieReward";
 
 let threeForTwo;
 let TwoGBFreeOneGB;
@@ -9,8 +10,8 @@ beforeEach(() => {
     const rawData = fs.readFileSync("pricing-rules.json");
     const data = JSON.parse(rawData);
 
-    threeForTwo = new FreebiePromo(data.autoPromos[0].name, data.autoPromos[0].requirements, data.autoPromos[0].rewards);
-    TwoGBFreeOneGB = new FreebiePromo(data.autoPromos[2].name, data.autoPromos[2].requirements, data.autoPromos[2].rewards);
+    threeForTwo = new Promo(data.autoPromos[0].name, data.autoPromos[0].requirements, data.autoPromos[0].rewards);
+    TwoGBFreeOneGB = new Promo(data.autoPromos[2].name, data.autoPromos[2].requirements, data.autoPromos[2].rewards);
 });
 
 
@@ -158,12 +159,13 @@ test('suddenly 3 for 2 deal on Unlimited 1GB requirement increased', () => {
 });
 
 test('suddenly 3 for 2 deal on Unlimited 1GB reward increased', () => {
-    threeForTwo.rewards.push({
-        type: "FreebiePromo",
-        applyPerItem: false,
+    const anotherFreebieReward = new FreebieReward();
+    Object.assign(anotherFreebieReward, {
+        type: "FreebieReward",
         code: 'ult_medium',
         qty: 1,
     });
+    threeForTwo.rewards.push(anotherFreebieReward);
 
     const cart = new ShoppingCart();
     cart.items = [
